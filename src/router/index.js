@@ -112,22 +112,26 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const user = JSON.parse(localStorage.getItem('user'))
 
+  // Check if the route requires a specific role
   if (to.meta.role) {
+    // 1. Check if user is logged in
     if (!user) {
       return next('/login')
     }
 
+    // 2. Check if user role matches the required role
+    // Note: This enforces strict matching. If you want Admins to also access 
+    // Staff pages, you would change this condition.
     if (user.role !== to.meta.role) {
-      if (user.role === 'admin') return next('/admin/dashboard')
-      if (user.role === 'staff') return next('/staff/dashboard')
-      if (user.role === 'aicsfocalperson') return next('/aicsfocalperson/dashboard')
-      if (user.role === 'officerincharge') return next('/officerincharge/dashboard')
-      if (user.role === 'scfocalperson') return next('/scfocalperson/dashboard')
-      if (user.role === 'slpfocalperson') return next('/slpfocalperson/dashboard')
+      // User is logged in but unauthorized. 
+      // Redirect to their own dashboard or login.
+      if(user.role === 'admin') return next('/admin/dashboard')
+      if(user.role === 'staff') return next('/staff/dashboard')
       return next('/login')
     }
   }
-
+  
+  // If the route has no meta.role (like /login), allow access
   next()
 })
 

@@ -159,7 +159,6 @@ const login = () => {
     alert('Invalid credentials')
   }
 }
-
 </script>
 
 <style scoped>

@@ -78,7 +78,7 @@
             <span class="nav-text">Donations Management</span>
           </router-link>
           
-          <!-- <router-link to="/staff/reports" class="nav-item">
+          <router-link to="/staff/reports" class="nav-item">
             <div class="icon-wrapper">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
@@ -89,7 +89,7 @@
               </svg>
             </div>
             <span class="nav-text">Reports</span>
-          </router-link> -->
+          </router-link>
         </div>
 
     
