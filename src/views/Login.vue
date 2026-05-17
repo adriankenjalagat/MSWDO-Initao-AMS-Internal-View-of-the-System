@@ -115,84 +115,48 @@ const autoFill = (u, p) => {
   password.value = p
 }
 
-// const login = () => {
-//   console.log('Login function called')
-  
-//   if (username.value === 'admin' && password.value === 'admin123') {
-//     const userData = { username: 'admin', role: 'admin' }
-//     localStorage.setItem('user', JSON.stringify(userData))
-//     if (keepLoggedIn.value) localStorage.setItem('keepLoggedIn', 'true')
-//     router.push('/admin/dashboard')
-//   } 
-//   else if (username.value === 'staff' && password.value === 'staff123') {
-//     const userData = { username: 'staff', role: 'staff' }
-//     localStorage.setItem('user', JSON.stringify(userData))
-//     if (keepLoggedIn.value) localStorage.setItem('keepLoggedIn', 'true')
-//     router.push('/staff/dashboard') 
-//   } 
-//   else if (username.value === 'aicsfocalperson' && password.value === 'aicsfocalperson123') {
-//     const userData = { username: 'aicsfocalperson', role: 'aicsfocalperson' }
-//     localStorage.setItem('user', JSON.stringify(userData))
-//     if (keepLoggedIn.value) localStorage.setItem('keepLoggedIn', 'true')
-//     router.push('/aicsfocalperson/dashboard') 
-//   } 
-//   else if (username.value === 'officerincharge' && password.value === 'officerincharge123') {
-//     const userData = { username: 'officerincharge', role: 'officerincharge' }
-//     localStorage.setItem('user', JSON.stringify(userData))
-//     if (keepLoggedIn.value) localStorage.setItem('keepLoggedIn', 'true')
-//     router.push('/officerincharge/dashboard') 
-//   } 
-//   else if (username.value === 'scfocalperson' && password.value === 'scfocalperson123') {
-//     const userData = { username: 'scfocalperson', role: 'scfocalperson' }
-//     localStorage.setItem('user', JSON.stringify(userData))
-//     if (keepLoggedIn.value) localStorage.setItem('keepLoggedIn', 'true')
-//     router.push('/scfocalperson/dashboard') 
-//   } 
-//   else if (username.value === 'slpfocalperson' && password.value === 'slpfocalperson123') {
-//     const userData = { username: 'slpfocalperson', role: 'slpfocalperson' }
-//     localStorage.setItem('user', JSON.stringify(userData))
-//     if (keepLoggedIn.value) localStorage.setItem('keepLoggedIn', 'true')
-//     router.push('/slpfocalperson/dashboard') 
-//   } 
-//   else {
-//     console.log('Invalid credentials')
-//     alert('Invalid credentials')
-//   }
-// }
-
-const login = async () => {
+const login = () => {
   console.log('Login function called')
   
-  try {
-    const response = await fetch('http://localhost:8080/api/auth/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        username: username.value,
-        password: password.value
-      })
-    })
-
-    if (response.ok) {
-      const userData = await response.json()
-      localStorage.setItem('user', JSON.stringify(userData))
-      if (keepLoggedIn.value) localStorage.setItem('keepLoggedIn', 'true')
-
-      // Redirect base sa role
-      if (userData.role === 'admin') router.push('/admin/dashboard')
-      else if (userData.role === 'staff') router.push('/staff/dashboard')
-      else if (userData.role === 'aicsfocalperson') router.push('/aicsfocalperson/dashboard')
-      else if (userData.role === 'officerincharge') router.push('/officerincharge/dashboard')
-      else if (userData.role === 'scfocalperson') router.push('/scfocalperson/dashboard')
-      else if (userData.role === 'slpfocalperson') router.push('/slpfocalperson/dashboard')
-    } else {
-      alert('Invalid credentials')
-    }
-  } catch (error) {
-    console.error('Login error:', error)
-    alert('Cannot connect to server!')
+  if (username.value === 'admin' && password.value === 'admin123') {
+    const userData = { username: 'admin', role: 'admin' }
+    localStorage.setItem('user', JSON.stringify(userData))
+    if (keepLoggedIn.value) localStorage.setItem('keepLoggedIn', 'true')
+    router.push('/admin/dashboard')
+  } 
+  else if (username.value === 'staff' && password.value === 'staff123') {
+    const userData = { username: 'staff', role: 'staff' }
+    localStorage.setItem('user', JSON.stringify(userData))
+    if (keepLoggedIn.value) localStorage.setItem('keepLoggedIn', 'true')
+    router.push('/staff/dashboard') 
+  } 
+  else if (username.value === 'aicsfocalperson' && password.value === 'aicsfocalperson123') {
+    const userData = { username: 'aicsfocalperson', role: 'aicsfocalperson' }
+    localStorage.setItem('user', JSON.stringify(userData))
+    if (keepLoggedIn.value) localStorage.setItem('keepLoggedIn', 'true')
+    router.push('/aicsfocalperson/dashboard') 
+  } 
+  else if (username.value === 'officerincharge' && password.value === 'officerincharge123') {
+    const userData = { username: 'officerincharge', role: 'officerincharge' }
+    localStorage.setItem('user', JSON.stringify(userData))
+    if (keepLoggedIn.value) localStorage.setItem('keepLoggedIn', 'true')
+    router.push('/officerincharge/dashboard') 
+  } 
+  else if (username.value === 'scfocalperson' && password.value === 'scfocalperson123') {
+    const userData = { username: 'scfocalperson', role: 'scfocalperson' }
+    localStorage.setItem('user', JSON.stringify(userData))
+    if (keepLoggedIn.value) localStorage.setItem('keepLoggedIn', 'true')
+    router.push('/scfocalperson/dashboard') 
+  } 
+  else if (username.value === 'slpfocalperson' && password.value === 'slpfocalperson123') {
+    const userData = { username: 'slpfocalperson', role: 'slpfocalperson' }
+    localStorage.setItem('user', JSON.stringify(userData))
+    if (keepLoggedIn.value) localStorage.setItem('keepLoggedIn', 'true')
+    router.push('/slpfocalperson/dashboard') 
+  } 
+  else {
+    console.log('Invalid credentials')
+    alert('Invalid credentials')
   }
 }
 
