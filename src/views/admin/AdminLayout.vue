@@ -26,7 +26,7 @@
               <p class="group-label">MAIN MENU</p>
      
           
-          <router-link to="/admin/dashboard" class="nav-item">
+          <!-- <router-link to="/admin/dashboard" class="nav-item">
             <div class="icon-wrapper">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <rect x="3" y="3" width="7" height="7"></rect>
@@ -90,7 +90,7 @@
               </svg>
             </div>
             <span class="nav-text">Reports</span>
-          </router-link>
+          </router-link> -->
         </div>
 
         <div class="divider"></div>
