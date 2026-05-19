@@ -159,7 +159,20 @@
     </div>
 
     <Modal v-if="showAddModal" title="New Application" @close="showAddModal = false">
-      <AddApplication @cancel="showAddModal = false" @done="handleNewApplication" />
+      <AddApplication 
+        @cancel="showAddModal = false" 
+        @done="handleNewApplication" 
+        @openCreateClient="openCreateClientModal"
+        @openCreateBeneficiary="openCreateBeneficiaryModal"
+      />
+    </Modal>
+
+    <Modal v-if="showBenModal" :title="`Add New ${clientBeneficiaryMode}`" @close="showBenModal = false">
+      <AddClientBeneficiary 
+        :recordType="clientBeneficiaryMode"
+        @cancel="showBenModal = false"
+        @done="showBenModal = false"
+      />
     </Modal>
 
   </div>
@@ -169,14 +182,27 @@
 import { ref, computed, watch } from 'vue'
 import Modal from '../../components/Modal.vue'
 import AddApplication from '../../components/AddApplication.vue'
+import AddClientBeneficiary from '../../components/AddClientBeneficiaryV3.vue'
 
 // --- State ---
 const showAddModal = ref(false)
+const showBenModal = ref(false)
+const clientBeneficiaryMode = ref('Client')
 const searchQuery = ref('')
 const activeFilter = ref('month')
 const currentPage = ref(1)
 const itemsPerPage = 6
 const selectedItems = ref([])
+
+const openCreateClientModal = () => {
+  clientBeneficiaryMode.value = 'Client'
+  showBenModal.value = true
+}
+
+const openCreateBeneficiaryModal = () => {
+  clientBeneficiaryMode.value = 'Beneficiary'
+  showBenModal.value = true
+}
 
 // Dummy Data
 const applications = ref([

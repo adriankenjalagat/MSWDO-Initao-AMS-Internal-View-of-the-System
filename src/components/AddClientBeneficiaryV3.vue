@@ -9,7 +9,7 @@
             </svg>
           </div>
           <div>
-            <h2 class="header-title">Create New Client Record</h2>
+            <h2 class="header-title">Create New {{ recordType }} Record</h2>
           </div>
         </div>
         <button @click="handleCancel" class="close-btn" type="button">
@@ -24,7 +24,7 @@
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
         <div>
-          <p class="success-title">Client Record Created Successfully!</p>
+          <p class="success-title">{{ recordType }} Record Created Successfully!</p>
         </div>
       </div>
 
@@ -454,7 +454,7 @@
               <svg v-else class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              {{ isSubmitting ? 'Creating Record...' : 'Create Client Record' }}
+              {{ isSubmitting ? 'Creating Record...' : `Create ${recordType} Record` }}
             </button>
           </div>
         </div>
@@ -465,6 +465,13 @@
 
 <script setup>
 import { reactive, ref } from 'vue'
+
+const props = defineProps({
+  recordType: {
+    type: String,
+    default: 'Client'
+  }
+})
 
 const emit = defineEmits(['cancel', 'done'])
 

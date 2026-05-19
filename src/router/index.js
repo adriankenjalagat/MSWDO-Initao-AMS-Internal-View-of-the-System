@@ -36,6 +36,7 @@ const routes = [
     children: [
       { path: 'dashboard', component: () => import('../views/staff/StaffDashboard.vue') },
       { path: 'clients', component: () => import('../views/staff/StaffClientsBeneficiaries.vue') },
+      { path: 'clients/:id', name: 'StaffClientDetail', component: () => import('../views/staff/StaffClientsBeneficiaries.vue') },
       { path: 'assistance', component: () => import('../views/staff/StaffAssistanceManagement.vue') },
       { path: 'relief', component: () => import('../views/staff/StaffReliefOperations.vue') },
       { path: 'donations', component: () => import('../views/staff/StaffDonationsManagement.vue') },

@@ -4,9 +4,9 @@
       <h1 class="page-title">Staff Dashboard Overview</h1>
     
       <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-header">
-            <h2 class="stat-number">12</h2>
+<div class="stat-card clickable" @click="openPendingModal">
+        <div class="stat-header">
+          <h2 class="stat-number">{{ pendingApplications.length }}</h2>
             <div class="stat-icon1">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
@@ -137,11 +137,30 @@
       <AddApplication 
         @cancel="showAppModal = false" 
         @done="showAppModal = false" 
+        @openCreateClient="openCreateClientModal"
+        @openCreateBeneficiary="openCreateBeneficiaryModal"
       />
     </Modal>
 
-    <Modal v-if="showBenModal" title="Add New Client/Beneficiary" @close="showBenModal = false">
+    <Modal v-if="showPendingModal" title="Pending Applications" @close="showPendingModal = false">
+      <div class="pending-modal">
+        <p class="pending-summary">Showing {{ pendingApplications.length }} pending client application(s)</p>
+        <div v-if="pendingApplications.length" class="pending-list">
+          <div v-for="item in pendingApplications" :key="item.id" class="pending-item clickable" @click="viewPendingProfile(item)">
+            <div>
+              <p class="pending-name">{{ item.name }}</p>
+              <p class="pending-detail">{{ item.type }} • {{ item.barangay }} • {{ item.date }}</p>
+            </div>
+            <span class="pending-status">{{ item.status }}</span>
+          </div>
+        </div>
+        <div v-else class="empty-message">No pending applications found.</div>
+      </div>
+    </Modal>
+
+    <Modal v-if="showBenModal" :title="`Add New ${clientBeneficiaryMode}`" @close="showBenModal = false">
       <AddClientBeneficiary 
+        :recordType="clientBeneficiaryMode"
         @cancel="showBenModal = false" 
         @done="showBenModal = false" 
       />
@@ -151,16 +170,40 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
 
 // Import the components (Ensure you create these components or rename existing ones)
 import Modal from '../../components/Modal.vue'
 import AddApplication from '../../components/AddApplication.vue'
 import AddClientBeneficiary from '../../components/AddClientBeneficiaryV3.vue'
 
+const router = useRouter()
+
 // -- Reactive State for Modals --
 const showAppModal = ref(false)
 const showBenModal = ref(false)
+const showPendingModal = ref(false)
+const clientBeneficiaryMode = ref('Client')
+
+const openPendingModal = () => {
+  showPendingModal.value = true
+}
+
+const viewPendingProfile = (item) => {
+  showPendingModal.value = false
+  router.push({ name: 'StaffClientDetail', params: { id: item.id } })
+}
+
+const openCreateClientModal = () => {
+  clientBeneficiaryMode.value = 'Client'
+  showBenModal.value = true
+}
+
+const openCreateBeneficiaryModal = () => {
+  clientBeneficiaryMode.value = 'Beneficiary'
+  showBenModal.value = true
+}
 
 // -- Data for the Staff UI --
 // Changed from "Activities" to "Applications"
@@ -170,6 +213,8 @@ const applications = ref([
   { id: 3, name: 'Roberto Lim', barangay: 'Tubigan', initials: 'RL', avatarColor: '#f3e5f5', type: 'Educational', status: 'For Review', date: 'May 11, 2024' },
   { id: 4, name: 'Elena Gomez', barangay: 'Gimangpang', initials: 'EG', avatarColor: '#e8f5e9', type: 'Medical Assistance', status: 'Approved', date: 'May 10, 2024' },
 ])
+
+const pendingApplications = computed(() => applications.value.filter(app => app.status.toLowerCase() === 'pending'))
 
 // Changed notifications to be relevant to Staff workflow
 const notifications = ref([
@@ -199,6 +244,20 @@ const notifications = ref([
 .stat-icon1 svg, .stat-icon2 svg, .stat-icon3 svg { width: 20px; height: 20px; } /* Ensure SVGs size correctly */
 
 .stat-label { font-size: 14px; color: #666; margin: 0; }
+
+.stat-card.clickable { cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.stat-card.clickable:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12); }
+
+.pending-modal { display: flex; flex-direction: column; gap: 16px; }
+.pending-summary { margin: 0 0 12px 0; color: #333; font-size: 14px; }
+.pending-list { display: flex; flex-direction: column; gap: 12px; }
+.pending-item { display: flex; justify-content: space-between; align-items: flex-start; padding: 14px 16px; border: 1px solid #e8eef7; border-radius: 12px; background: #fafbff; }
+.pending-item.clickable { cursor: pointer; transition: background-color 0.2s ease, transform 0.2s ease; }
+.pending-item.clickable:hover { background-color: #eef4ff; transform: translateY(-1px); }
+.pending-name { margin: 0 0 4px 0; font-weight: 600; color: #102a43; }
+.pending-detail { margin: 0; font-size: 13px; color: #556575; }
+.pending-status { padding: 4px 10px; border-radius: 999px; background: #fff3e0; color: #d97706; font-size: 12px; font-weight: 700; text-transform: uppercase; }
+.empty-message { color: #65748b; font-size: 14px; }
 
 /* Activities/Table Section */
 .activities-section { background: white; padding: 24px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }
