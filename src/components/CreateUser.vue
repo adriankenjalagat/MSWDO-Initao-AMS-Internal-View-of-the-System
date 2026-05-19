@@ -270,6 +270,7 @@ const validateForm = () => {
   return Object.keys(newErrors).length === 0
 }
 
+
 const handleSubmit = async () => {
   if (!validateForm()) return
 
@@ -291,6 +292,7 @@ const handleCancel = () => {
   emit('cancel')
 }
 </script>
+
 
 <style scoped>
 * { box-sizing: border-box; }

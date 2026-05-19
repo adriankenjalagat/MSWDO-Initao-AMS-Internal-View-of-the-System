@@ -23,7 +23,7 @@
 
       <nav class="nav-scroller">
         <div class="nav-group">
-          <!--     <p class="group-label">MAIN MENU</p> -->
+              <p class="group-label">MAIN MENU</p>
      
           
           <router-link to="/admin/dashboard" class="nav-item">
