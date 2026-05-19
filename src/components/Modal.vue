@@ -34,8 +34,11 @@ defineEmits(['close'])
   background: white;
   padding: 24px;
   border-radius: 12px;
-  width: 500px;
-  max-width: 90%;
+  width: min(75vw, 75vh);
+  height: min(75vw, 75vh);
+  max-width: 800px;
+  max-height: 800px;
+  overflow-y: auto;
   box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
 

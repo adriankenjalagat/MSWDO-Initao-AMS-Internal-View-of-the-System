@@ -70,14 +70,27 @@
                     :class="{ 'error': errors.beneficiaryId }"
                     @blur="validateField('beneficiaryId')"
                   />
-                  <button type="button" class="lookup-btn" @click="lookupBeneficiary" title="Lookup Beneficiary">
+                  <button type="button" class="lookup-btn" @click="lookupBeneficiary" title="Lookup Beneficiary" :disabled="form.samePerson">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                       <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                   </button>
                 </div>
                 <span v-if="errors.beneficiaryId" class="error-message">{{ errors.beneficiaryId }}</span>
-                <span v-else class="helper-text">Enter existing beneficiary ID or search</span>
+                <span v-else class="helper-text">
+                  <template v-if="form.samePerson">IDs will mirror each other while the toggle is on.</template>
+                  <template v-else>Enter existing beneficiary ID or search</template>
+                </span>
+              </div>
+            </div>
+
+            <div class="form-row same-person-row">
+              <div class="switch-wrapper">
+                <span class="switch-text">Client and beneficiary are the same person</span>
+                <label class="toggle-switch">
+                  <input type="checkbox" v-model="form.samePerson" />
+                  <span class="slider"></span>
+                </label>
               </div>
             </div>
 
@@ -235,13 +248,14 @@
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue'
+import { reactive, ref, watch } from 'vue'
 
-const emit = defineEmits(['cancel', 'done'])
+const emit = defineEmits(['cancel', 'done', 'openCreateClient', 'openCreateBeneficiary'])
 
 const form = reactive({
   clientId: '',
   beneficiaryId: '',
+  samePerson: false,
   programType: 'Medical Assistance (AICS)',
   amount: '',
   status: 'Pending',
@@ -290,10 +304,78 @@ const lookupClient = () => {
       name: 'Juan Dela Cruz',
       contact: '0912-345-6789'
     }
+    if (form.samePerson) {
+      syncSamePersonIds('clientId')
+    }
   }
 }
 
+const syncSamePersonIds = (changedField) => {
+  if (!form.samePerson) {
+    return
+  }
+
+  if (changedField === 'clientId') {
+    form.beneficiaryId = form.clientId
+  } else {
+    form.clientId = form.beneficiaryId
+  }
+
+  const currentId = form.clientId.trim()
+  if (currentId) {
+    clientInfo.value = {
+      name: 'Juan Dela Cruz',
+      contact: '0912-345-6789'
+    }
+    beneficiaryInfo.value = {
+      ...clientInfo.value,
+      relationship: 'Self'
+    }
+  } else {
+    clientInfo.value = null
+    beneficiaryInfo.value = null
+  }
+}
+
+watch(() => form.samePerson, (value) => {
+  if (value) {
+    if (form.clientId.trim()) {
+      syncSamePersonIds('clientId')
+    } else if (form.beneficiaryId.trim()) {
+      syncSamePersonIds('beneficiaryId')
+    }
+  }
+})
+
+watch(() => form.clientId, (value) => {
+  if (errors.clientId && value.trim().length >= 3) {
+    errors.clientId = ''
+  }
+  if (form.samePerson) {
+    syncSamePersonIds('clientId')
+  }
+})
+
+watch(() => form.beneficiaryId, (value) => {
+  if (errors.beneficiaryId && value.trim().length >= 3) {
+    errors.beneficiaryId = ''
+  }
+  if (form.samePerson) {
+    syncSamePersonIds('beneficiaryId')
+  }
+})
+
+watch(() => form.amount, (value) => {
+  if (errors.amount && value !== '' && parseFloat(value) > 0 && !Number.isNaN(parseFloat(value))) {
+    errors.amount = ''
+  }
+})
+
 const lookupBeneficiary = () => {
+  if (form.samePerson) {
+    return
+  }
+
   // This is just for frontend display - simulating a found beneficiary
   if (form.beneficiaryId) {
     beneficiaryInfo.value = {
@@ -304,13 +386,11 @@ const lookupBeneficiary = () => {
 }
 
 const createNewClient = () => {
-  // This would open your client creation modal/page
-  alert('This would open the Create New Client page')
+  emit('openCreateClient')
 }
 
 const createNewBeneficiary = () => {
-  // This would open your beneficiary creation modal/page
-  alert('This would open the Create New Beneficiary page')
+  emit('openCreateBeneficiary')
 }
 
 const showSuccessMessage = ref(false)
@@ -550,6 +630,76 @@ const submit = () => {
 
 .id-input-wrapper input {
   flex: 1;
+}
+
+.same-person-row {
+  margin-bottom: 16px;
+}
+
+.switch-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+
+.switch-text {
+  font-size: 13px;
+  color: #374151;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 46px;
+  height: 26px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: #d1d5db;
+  border-radius: 999px;
+  transition: background-color 0.2s ease;
+}
+
+.slider::before {
+  content: '';
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  top: 3px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.12);
+  transition: transform 0.2s ease;
+}
+
+.toggle-switch input:checked + .slider {
+  background-color: #2563eb;
+}
+
+.toggle-switch input:checked + .slider::before {
+  transform: translateX(20px);
+}
+
+.form-group input:disabled {
+  background: #f9fafb;
+  cursor: not-allowed;
 }
 
 .lookup-btn {

@@ -1,7 +1,36 @@
 <template>
   <div class="client-management">
     <h1 class="page-title">Client & Beneficiary Management</h1>
-    
+
+    <div v-if="selectedClient" class="selected-client-card">
+      <div class="selected-client-heading">
+        <div>
+          <p class="selected-client-tag">Viewing Profile</p>
+          <h2>{{ selectedClient.name }}</h2>
+          <p class="selected-client-role">{{ selectedClient.role }} • {{ selectedClient.clientId }}</p>
+        </div>
+        <button class="back-to-list" @click="clearSelectedClient">Back to list</button>
+      </div>
+      <div class="selected-client-grid">
+        <div>
+          <p class="detail-label">Contact</p>
+          <p class="detail-value">{{ selectedClient.contact }}</p>
+        </div>
+        <div>
+          <p class="detail-label">Email</p>
+          <p class="detail-value">{{ selectedClient.email }}</p>
+        </div>
+        <div>
+          <p class="detail-label">Address</p>
+          <p class="detail-value">{{ selectedClient.address }}</p>
+        </div>
+        <div>
+          <p class="detail-label">Status</p>
+          <p class="detail-value">{{ selectedClient.status }}</p>
+        </div>
+      </div>
+    </div>
+
     <div class="action-bar">
       <div class="search-box">
         <span class="search-icon">
@@ -102,6 +131,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 // --- IMPORTS ---
 // Updated to use only V3
@@ -112,6 +142,8 @@ const showAddModal = ref(false)
 // NOTE: currentStep and tempClientData were removed as V3 handles internal state
 const searchQuery = ref('')
 const selectAll = ref(false)
+const route = useRoute()
+const router = useRouter()
 const currentPage = ref(1)
 const itemsPerPage = 10
 
@@ -180,6 +212,10 @@ const goToPage = (page) => {
   }
 }
 
+const clearSelectedClient = () => {
+  router.push({ path: '/staff/clients' })
+}
+
 // --- Computed Properties ---
 const filteredClients = computed(() => {
   if (!searchQuery.value) return paginatedClients.value
@@ -208,6 +244,15 @@ const paginationEnd = computed(() => {
 })
 
 // Logic for page numbers (1, 2, ..., 10)
+const selectedClientId = computed(() => {
+  return route.params.id ? Number(route.params.id) : null
+})
+
+const selectedClient = computed(() => {
+  if (!selectedClientId.value) return null
+  return clients.value.find(client => client.id === selectedClientId.value)
+})
+
 const visiblePages = computed(() => {
   const pages = []
   const total = totalPages.value
@@ -286,6 +331,16 @@ const visiblePages = computed(() => {
 .page-btn2:hover:not(:disabled):not(.active) { background: #f5f5f5; }
 .page-btn2.active { background: #4c6ef5; color: white; border-color: #4c6ef5; }
 .page-btn2:disabled { opacity: 0.4; cursor: not-allowed; }
+.selected-client-card { background: white; border-radius: 16px; padding: 24px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); margin-bottom: 24px; }
+.selected-client-heading { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 18px; }
+.selected-client-tag { font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; color: #4c6ef5; margin: 0 0 6px 0; }
+.selected-client-role { margin: 6px 0 0 0; color: #65748b; font-size: 14px; }
+.back-to-list { padding: 10px 16px; border-radius: 10px; border: 1px solid #e0e0e0; background: white; cursor: pointer; font-weight: 600; transition: background 0.2s ease; }
+.back-to-list:hover { background: #f5f7ff; }
+.selected-client-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.detail-label { font-size: 12px; color: #6b7280; margin: 0 0 6px 0; text-transform: uppercase; letter-spacing: 0.08em; }
+.detail-value { margin: 0; font-size: 15px; color: #111827; }
+@media (max-width: 1024px) { .selected-client-grid { grid-template-columns: 1fr; } }
 @media (max-width: 1200px) { .action-bar { flex-direction: column; align-items: stretch; } .search-box { max-width: 100%; } .action-buttons { justify-content: flex-end; } }
 @media (max-width: 768px) { .clients-table { font-size: 12px; } .clients-table thead th, .clients-table tbody td { padding: 8px 6px; } .pagination { flex-direction: column; gap: 16px; } .action-buttons { flex-direction: column; } }
 </style>
