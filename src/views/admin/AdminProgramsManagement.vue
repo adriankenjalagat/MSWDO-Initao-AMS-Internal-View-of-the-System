@@ -112,15 +112,16 @@
       </div>
     </div>
 
-    <Modal v-if="showCreateModal" title="Create New Program" @close="showCreateModal = false">
-      <CreateProgram @cancel="showCreateModal = false" @done="handleCreateProgram" />
-    </Modal>
+    <CreateProgram 
+      v-if="showCreateModal"
+      @cancel="showCreateModal = false" 
+      @done="handleCreateProgram" 
+    />
   </div>
 </template>
 
 <script setup>
 import { ref, computed } from 'vue'
-import Modal from '../../components/Modal.vue'
 import CreateProgram from '../../components/AddProgram.vue'
 
 // --- State ---

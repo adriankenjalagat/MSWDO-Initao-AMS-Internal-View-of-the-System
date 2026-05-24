@@ -52,6 +52,7 @@ const routes = [
     children: [
       { path: 'dashboard', component: () => import('../views/aicsfocalperson/AFPDashboard.vue') },
       { path: 'clients', component: () => import('../views/aicsfocalperson/AFPClientsBeneficiaries.vue') },
+      { path: 'aics-application', component: () => import('../views/aicsfocalperson/AICSApplication.vue') },
       { path: 'assistance', component: () => import('../views/aicsfocalperson/AFPAssistanceManagement.vue') },
       { path: 'relief', component: () => import('../views/aicsfocalperson/AFPReliefOperations.vue') },
       { path: 'donations', component: () => import('../views/aicsfocalperson/AFPDonationsManagement.vue') },
@@ -79,6 +80,7 @@ const routes = [
     redirect: '/scfocalperson/dashboard', // FIX: Redirects /staff to dashboard
     children: [
       { path: 'dashboard', component: () => import('../views/scfocalperson/SCDashboard.vue') },
+      { path: 'social-pension-beneficiaries', component: () => import('../views/scfocalperson/SCSocialPensionBeneficiaries.vue') },
       { path: 'clients', component: () => import('../views/scfocalperson/SCClientsBeneficiaries.vue') },
       { path: 'assistance', component: () => import('../views/scfocalperson/SCAssistanceManagement.vue') },
       { path: 'relief', component: () => import('../views/scfocalperson/SCReliefOperations.vue') },
@@ -93,6 +95,7 @@ const routes = [
     redirect: '/slpfocalperson/dashboard', // FIX: Redirects /staff to dashboard
     children: [
       { path: 'dashboard', component: () => import('../views/slpfocalperson/SLPDashboard.vue') },
+      { path: 'slp-beneficiaries', component: () => import('../views/slpfocalperson/SLPBeneficiaries.vue') },
       { path: 'clients', component: () => import('../views/slpfocalperson/SLPClientsBeneficiaries.vue') },
       { path: 'assistance', component: () => import('../views/slpfocalperson/SLPAssistanceManagement.vue') },
       { path: 'relief', component: () => import('../views/slpfocalperson/SLPReliefOperations.vue') },

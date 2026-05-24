@@ -337,16 +337,32 @@ const handleSubmit = async () => {
 .success-icon { width: 1.25rem; height: 1.25rem; }
 
 .modal-overlay {
-  position: fixed; inset: 0; background-color: rgba(0, 0, 0, 0.5);
-  display: flex; align-items: center; justify-content: center; padding: 1rem;
-  z-index: 50; animation: fadeIn 0.2s ease-out;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  padding: 0;
+  z-index: 9999;
+  animation: fadeIn 0.2s ease-out;
+  overflow: hidden;
 }
 
 .modal-container {
-  background: white; border-radius: 0.75rem;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-  width: 100%; max-width: 56rem; max-height: 90vh;
-  overflow: hidden; display: flex; flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-radius: 0;
+  box-shadow: none;
+  width: 100vw;
+  height: 100vh;
+  max-width: none;
+  max-height: none;
+  overflow: hidden;
   animation: slideUp 0.3s ease-out;
 }
 

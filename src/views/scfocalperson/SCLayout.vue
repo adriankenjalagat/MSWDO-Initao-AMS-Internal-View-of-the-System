@@ -37,6 +37,16 @@
             <span class="nav-text">Dashboard</span>
           </router-link>
 
+          <router-link to="/scfocalperson/social-pension-beneficiaries" class="nav-item">
+            <div class="icon-wrapper">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z"></path>
+                <path d="M4 20v-1c0-2.21 1.79-4 4-4h8c2.21 0 4 1.79 4 4v1"></path>
+              </svg>
+            </div>
+            <span class="nav-text">Social Pension Beneficiaries</span>
+          </router-link>
+
           <!-- <router-link to="/scfocalperson/clients" class="nav-item">
             <div class="icon-wrapper">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

@@ -49,6 +49,18 @@
             <span class="nav-text">Clients & Beneficiaries</span>
           </router-link>
 
+          <router-link to="/aicsfocalperson/aics-application" class="nav-item">
+            <div class="icon-wrapper">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 7h16"></path>
+                <path d="M4 12h16"></path>
+                <path d="M4 17h10"></path>
+                <path d="M4 5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5z"></path>
+              </svg>
+            </div>
+            <span class="nav-text">AICS Application</span>
+          </router-link>
+
           <router-link to="/aicsfocalperson/assistance" class="nav-item">
             <div class="icon-wrapper">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

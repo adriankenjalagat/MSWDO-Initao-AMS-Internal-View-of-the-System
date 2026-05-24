@@ -437,13 +437,14 @@ const submit = () => {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.85);
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
-  padding: 20px;
-  z-index: 1000;
+  padding: 0;
+  z-index: 9999;
   animation: fadeIn 0.2s ease-out;
+  overflow: hidden;
 }
 
 @keyframes fadeIn {
@@ -452,11 +453,16 @@ const submit = () => {
 }
 
 .modal-container {
+  display: flex;
+  flex-direction: column;
   background: white;
-  border-radius: 12px;
-  width: 100%;
-  max-width: 800px;
-  max-height: 90vh;
+  border-radius: 0;
+  box-shadow: none;
+  width: 100vw;
+  height: 100vh;
+  max-width: none;
+  max-height: none;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);

@@ -126,12 +126,11 @@
       />
     </Modal>
 
-    <Modal v-if="showProgramModal" title="Add New Program" @close="showProgramModal = false">
-      <AddProgram 
-        @cancel="showProgramModal = false" 
-        @done="showProgramModal = false" 
-      />
-    </Modal>
+    <AddProgram 
+      v-if="showProgramModal"
+      @cancel="showProgramModal = false" 
+      @done="showProgramModal = false" 
+    />
 
   </div>
 </template>
@@ -140,7 +139,6 @@
 import { ref } from 'vue'
 
 // Import the components
-import Modal from '../../components/Modal.vue'
 import CreateUser from '../../components/CreateUser.vue'
 import AddProgram from '../../components/AddProgram.vue'
 
