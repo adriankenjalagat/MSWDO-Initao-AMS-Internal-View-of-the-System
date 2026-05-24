@@ -95,8 +95,8 @@ const routes = [
     redirect: '/slpfocalperson/dashboard', // FIX: Redirects /staff to dashboard
     children: [
       { path: 'dashboard', component: () => import('../views/slpfocalperson/SLPDashboard.vue') },
-      { path: 'slp-beneficiaries', component: () => import('../views/slpfocalperson/SLPBeneficiaries.vue') },
       { path: 'clients', component: () => import('../views/slpfocalperson/SLPClientsBeneficiaries.vue') },
+      { path: 'slp-beneficiaries', component: () => import('../views/slpfocalperson/SLPClientsBeneficiaries.vue') },
       { path: 'assistance', component: () => import('../views/slpfocalperson/SLPAssistanceManagement.vue') },
       { path: 'relief', component: () => import('../views/slpfocalperson/SLPReliefOperations.vue') },
       { path: 'donations', component: () => import('../views/slpfocalperson/SLPDonationsManagement.vue') },
