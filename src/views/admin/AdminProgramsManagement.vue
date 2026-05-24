@@ -2,7 +2,7 @@
   <div class="program-management">
     <div class="header">
       <div>
-        <h1>Program Management</h1>
+        <h1>Programs Management</h1>
       </div>
     </div>
 

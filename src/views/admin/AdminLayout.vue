@@ -25,19 +25,8 @@
         <div class="nav-group">
           <p class="group-label">MAIN MENU</p>
           
-          <!-- <router-link to="/admin/dashboard" class="nav-item">
-            <div class="icon-wrapper">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="3" y="3" width="7" height="7"></rect>
-                <rect x="14" y="3" width="7" height="7"></rect>
-                <rect x="14" y="14" width="7" height="7"></rect>
-                <rect x="3" y="14" width="7" height="7"></rect>
-              </svg>
-            </div>
-            <span class="nav-text">Dashboard</span>
-          </router-link>
-
-          <router-link to="/admin/clients" class="nav-item">
+         
+          <!--<router-link to="/admin/clients" class="nav-item">
             <div class="icon-wrapper">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
@@ -91,11 +80,20 @@
             <span class="nav-text">Reports</span>
           </router-link> -->
         </div>
-
-        <div class="divider"></div>
+   
 
         <div class="nav-group">
-          <p class="group-label">SYSTEM</p>
+          <router-link to="/admin/dashboard" class="nav-item">
+            <div class="icon-wrapper">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+              </svg>
+            </div>
+            <span class="nav-text">Dashboard</span>
+          </router-link>
           
           <router-link to="/admin/users" class="nav-item">
             <div class="icon-wrapper">
