@@ -1,7 +1,7 @@
 <template>
   <div class="users-management">
     <div class="header">
-      <h1>User Management</h1>
+      <h1>Users Management</h1>
       <button class="btn-primary" @click="showCreateModal = true">
         + Add New User
       </button>

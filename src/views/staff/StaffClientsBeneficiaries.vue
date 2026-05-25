@@ -283,13 +283,13 @@ const visiblePages = computed(() => {
 
 <style scoped>
 * { box-sizing: border-box; }
-.client-management { padding: 24px; background-color: #f5f7fa; min-height: 100vh; margin-left: -30px; margin-top: -18px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; }
+.client-management { padding: 24px; background-color: #f5f7fa; min-height: 100vh; margin-left: -30px; margin-right: -30px; margin-top: -10px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; }
 .page-title { font-size: 30px; font-weight: 600; font-family: outfit; margin: 0 0 24px 0; margin-bottom: 35px; color: #1a1a1a; }
 .action-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; gap: 16px; }
 .search-box { display: flex; align-items: center; background: white; border: 1px solid #e0e0e0; border-radius: 8px; padding: 10px 16px; flex: 1; max-width: 400px; }
 .search-icon { margin-right: 8px; opacity: 0.5; }
 .search-input { border: none; outline: none; font-size: 14px; width: 100%; }
-.action-buttons { display: flex; gap: 12px; }
+.action-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
 .export-btn, .add-btn { padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; border: none; display: flex; align-items: center; gap: 8px; transition: all 0.2s; }
 
 .export-btn { background: white; border: 1px solid #e0e0e0; color: #333; }
@@ -297,7 +297,7 @@ const visiblePages = computed(() => {
 .add-btn { background: #4c6ef5; color: white; }
 .add-btn:hover { background: #3b5bdb; }
 .btn-icon { font-size: 16px; }
-.table-container { background: white; border-radius: 12px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); overflow-x: auto; width: 1120px; max-width: 1200px; margin: 0 auto; }
+.table-container { background: white; border-radius: 12px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); overflow-x: auto; width: 100%; max-width: 1200px; margin: 0 auto; }
 .clients-table { width: 100%; border-collapse: collapse; }
 .clients-table thead th { text-align: left; font-size: 11px; font-weight: 600; color: #666; text-transform: uppercase; padding: 16px 12px; border-bottom: 2px solid #f0f0f0; background: #fafafa; letter-spacing: 0.5px; }
 .clients-table tbody td { padding: 16px 12px; border-bottom: 1px solid #f0f0f0; color: #333; font-size: 14px; }
